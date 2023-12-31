@@ -1,0 +1,98 @@
+
+@mixin Shadow {  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.07);}
+
+
+@mixin Flex { display: flex; justify-content: center; align-items: center;}
+
+
+@mixin Hover { &:hover{    color: var(--secondary); }}
+
+@mixin Hover_outline_characters {
+  &:hover{  text-shadow: 2px 2px  var(--secondary);}}
+
+@mixin underLineText($color1,$color2){
+  background-image: linear-gradient(90deg, $color1 , $color2);
+  background-size: 0% 3px;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  transition: background-size 500ms ease-in-out;
+  &:hover{
+      background-size: 100% 3px;
+
+  }
+}
+.underLineText{
+    background-image: linear-gradient(90deg, var(--primary) , var(--secondary));
+  background-size: 0% 3px;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  transition: background-size 500ms ease-in-out;
+  &:hover{
+      background-size: 100% 3px;
+
+  }
+}
+
+  @media screen and (max-width: 800px) {
+                .test{
+                  background-color: red;
+                }
+  }
+
+  @mixin Typewriter {
+    // border-right: 5px solid var(--secondary);
+    width: 100%;
+    word-spacing: nowrap;
+    text-wrap: nowrap;
+    overflow: hidden;
+    animation:  typing 6s    ;
+
+  }
+
+  @keyframes  typing {
+    from{
+      width: 0;
+    }
+
+  }
+
+
+
+  @mixin Glitch {
+  letter-spacing: 5px;
+  animation: shift 8s ease-in-out infinite alternate;
+  }
+
+@keyframes shift {
+  0%, 40%, 44%, 58%, 61%, 65%, 69%, 73%, 100% {
+    transform: skewX(0deg);
+  }
+
+  41% {
+    transform: skewX(10deg);
+  }
+
+  42% {
+    transform: skewX(-10deg);
+  }
+
+  59% {
+    transform: skewX(40deg) skewY(10deg);
+  }
+
+  60% {
+    transform: skewX(-40deg) skewY(-10deg);
+  }
+
+  63% {
+    transform: skewX(10deg) skewY(-5deg);
+  }
+
+  70% {
+    transform: skewX(-50deg) skewY(-20deg);
+  }
+
+  71% {
+    transform: skewX(10deg) skewY(-10deg);
+  }
+}
