@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
+    "@react-google-maps/api": "^2.19.2",
     "@reduxjs/toolkit": "^2.0.1",
     "@szhsin/react-menu": "github:szhsin/react-menu",
     "@testing-library/jest-dom": "^5.17.0",
@@ -21,6 +22,7 @@
     "chart.js": "^4.4.0",
     "dayjs": "^1.11.10",
     "formik": "^2.4.5",
+    "google-map-react": "^2.2.1",
     "i18next": "^23.6.0",
     "i18next-browser-languagedetector": "^7.1.0",
     "json-server": "^0.17.4",
@@ -32,6 +34,7 @@
     "react-data-table-component": "^7.5.4",
     "react-dom": "^18.2.0",
     "react-feather": "^2.0.10",
+    "react-google-maps": "^9.4.5",
     "react-i18next": "^13.3.1",
     "react-icons": "^4.11.0",
     "react-lazyload": "^3.2.0",
