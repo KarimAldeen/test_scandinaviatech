@@ -32,4 +32,3 @@ Start the development server:
 
 pnpm start
 
-    ```
