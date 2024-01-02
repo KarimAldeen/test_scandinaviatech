@@ -1,6 +1,6 @@
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Styles/AppStyle/Import.scss'
+import './Styles/app/index.scss'
 import { createRoot } from "react-dom/client";
 import ProviderContainer from './ProviderContainer';
 
