@@ -1,12 +1,16 @@
-import { BrowserRouter } from 'react-router-dom'
-import { Tchildren } from './Layout/app/Types'
+import React, { ReactNode } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
-function ProviderContainer({children}:Tchildren) {
-  return (
- <BrowserRouter basename='/'>
-             {children}
-</BrowserRouter>
-    )
+interface ProviderContainerProps {
+  children: ReactNode;
 }
 
-export default ProviderContainer
+const ProviderContainer: React.FC<ProviderContainerProps> = ({ children }) => {
+  return (
+    <BrowserRouter basename='/'>
+      {children}
+    </BrowserRouter>
+  );
+};
+
+export default ProviderContainer;

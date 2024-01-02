@@ -28,6 +28,12 @@
         box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
         min-width: 68px;
         font-weight: bold;
+        animation: .2s ease-in-out;
+        &:hover{
+              scale: 1.01;
+              
+        }
+
        }
      
     }

@@ -1,12 +1,10 @@
   import React, { useState } from 'react';
   import { GoogleMap, Marker } from '@react-google-maps/api';
   import { useJsApiLoader } from '../../Hooks/useJsApiLoader';
+import { TPosition } from '../../types/Maps';
 
-  type TPosition = { lat: number; lng: number };
 
-  interface MapProps {initialPosition: TPosition;}
-
-  const Map: React.FC<MapProps> = ({ initialPosition }) => {
+  const Map: React.FC<{ initialPosition: TPosition }> =  ({ initialPosition }) => {
     const [markerPosition, setMarkerPosition] = useState<TPosition>(initialPosition);
     const { isLoaded } = useJsApiLoader();
     const [groupingEnabled, setGroupingEnabled] = useState<boolean>(false);
@@ -29,10 +27,8 @@
     const togglePing = () => {
       setPingEnabled((prevPingEnabled) => !prevPingEnabled);
 
-
     };
   
-
     return (
       <>
         <div className="settings-container">

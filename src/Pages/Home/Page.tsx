@@ -3,7 +3,7 @@ import React from 'react';
 import Map from '../../Components/Home/Map';
 
 const HomePage: React.FC = () => {
-  const initialPosition = { lat: 33.4972367, lng: 36.2429607 };
+  const initialPosition = { lat: 33.52420995530281, lng: 36.3030410586767 };
 
   return (
     <div className='HomePage'>
@@ -13,3 +13,5 @@ const HomePage: React.FC = () => {
 };
 
 export default HomePage;
+
+
