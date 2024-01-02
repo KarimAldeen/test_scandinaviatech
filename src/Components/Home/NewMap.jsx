@@ -1,17 +1,44 @@
 import React, { useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, LayersControl } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, LayersControl, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { FullscreenControl } from 'react-leaflet-fullscreen';
-import 'react-leaflet-fullscreen/styles.css';
-
 import { Button, Popover } from 'antd';
-import { FaLayerGroup } from "react-icons/fa";
+import { FaLayerGroup } from 'react-icons/fa';
+import { IoSettings } from 'react-icons/io5';
+import { ImZoomIn, ImZoomOut } from 'react-icons/im';
+import { MdFullscreen, MdFullscreenExit } from 'react-icons/md';
 
+const FullscreenControl = () => {
+  const map = useMap();
 
+  const handleFullscreenToggle = () => {
+    const container = map.getContainer();
+
+    if (container.requestFullscreen) {
+      container.requestFullscreen();
+    } else if (container.mozRequestFullScreen) {
+      container.mozRequestFullScreen();
+    } else if (container.webkitRequestFullscreen) {
+      container.webkitRequestFullscreen();
+    } else if (container.msRequestFullscreen) {
+      container.msRequestFullscreen();
+    }
+  };
+
+  return (
+    <Button shape='circle' icon={<MdFullscreen />} onClick={handleFullscreenToggle} />
+  );
+};
 
 const App = () => {
-  const [CurrentMap, setCurrentMap] = useState(1)
+  const [currentMap, setCurrentMap] = useState(1);
+  const [zoom, setZoom] = useState(13);
+
+  const markers = [
+    { position: [51.505, -0.09] },
+    { position: [51.5, -0.1] },
+    { position: [51.49, -0.05] },
+  ];
 
   const center = [51.505, -0.09];
   const customIcon = new L.Icon({
@@ -21,70 +48,96 @@ const App = () => {
     popupAnchor: [0, -30],
   });
 
-  const CurrentMapHandelClick =(CurrentMap)=>{
-      setCurrentMap(CurrentMap)
-  }
+  const currentMapHandleClick = (currentMap) => {
+    setCurrentMap(currentMap);
+  };
+
+  const handleZoomIn = () => {
+    setZoom((prevZoom) => prevZoom + 1);
+  };
+
+  const handleZoomOut = () => {
+    setZoom((prevZoom) => prevZoom - 1);
+  };
+
   const content = (
     <div className='layers-content'>
-   <div> <img onClick={()=>CurrentMapHandelClick(1)} className={CurrentMap === 1 ? "ActiveImage" : ""} src="../Layout/OpenStreetMap.png" alt="" />  <h6>Open Street Map</h6> </div>
-   <div> <img onClick={()=>CurrentMapHandelClick(2)} className={CurrentMap === 2 ? "ActiveImage" : ""} src="../Layout/GoogleMap.png" alt="" />  <h6>Google Map</h6> </div>
-   <div> <img onClick={()=>CurrentMapHandelClick(3)} className={CurrentMap === 3 ? "ActiveImage" : ""} src="../Layout/googleSatellite.png" alt="" />  <h6>google Satellite</h6> </div>
-  
+      <div>
+        <img onClick={() => currentMapHandleClick(1)} className={currentMap === 1 ? 'ActiveImage' : ''} src='../Layout/OpenStreetMap.png' alt='' />
+        <h6>Open Street Map</h6>
+      </div>
+      <div>
+        <img onClick={() => currentMapHandleClick(2)} className={currentMap === 2 ? 'ActiveImage' : ''} src='../Layout/GoogleMap.png' alt='' />
+        <h6>Google Map</h6>
+      </div>
+      <div>
+        <img onClick={() => currentMapHandleClick(3)} className={currentMap === 3 ? 'ActiveImage' : ''} src='../Layout/googleSatellite.png' alt='' />
+        <h6>Google Satellite</h6>
+      </div>
     </div>
   );
-  
+
   return (
-    <div className="NewMap">
-      <MapContainer center={center} zoom={13} style={{ height: '500px', width: '100%' }}>
-        <LayersControl position="bottomleft" className="LayersControl">
+    <div className='NewMap'>
+      <MapContainer center={center} zoom={zoom} style={{ height: '500px', width: '100%' }}>
+        <LayersControl position='bottomright' className='LayersControl'>
           {/* OpenStreetMap */}
-          <LayersControl.BaseLayer name="OpenStreetMap" checked={CurrentMap === 1 ? true :  false}>
+          <LayersControl.BaseLayer name='OpenStreetMap' checked={currentMap === 1} onChange={() => currentMapHandleClick(1)}>
             <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
           </LayersControl.BaseLayer>
 
           {/* Google Maps */}
-          <LayersControl.BaseLayer name="Google Maps" checked={CurrentMap === 2 ? true :  false}>
+          <LayersControl.BaseLayer name='Google Maps' checked={currentMap === 2} onChange={() => currentMapHandleClick(2)}>
             <TileLayer
-              url="https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
+              url='https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}'
               attribution='&copy; <a href="https://www.google.com/maps">Google Maps</a> contributors'
             />
           </LayersControl.BaseLayer>
 
           {/* Google Maps Satellite */}
-          <LayersControl.BaseLayer name="Google Maps Satellite" checked={CurrentMap === 3 ? true :  false}>
+          <LayersControl.BaseLayer name='Google Maps Satellite' checked={currentMap === 3} onChange={() => currentMapHandleClick(3)}>
             <TileLayer
-              url="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
+              url='https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
               attribution='&copy; <a href="https://www.google.com/maps">Google Maps</a> contributors'
             />
           </LayersControl.BaseLayer>
-
-          {/* Custom Overlay with Content */}
-       
         </LayersControl>
-       <div className='layers-container'>
-       <Popover content={content} trigger="click">
-       <Button icon={<FaLayerGroup />} />
-        </Popover>
-       </div>
-       <div className='settings-container'>
-       <Popover content={content} trigger="click">
-       <Button icon={<FaLayerGroup />} />
-        </Popover>
-       </div>
 
+        <div className='zoom-container'>
+          <div>
+            <button className='ImZoomIn' onClick={handleZoomIn}>
+              <ImZoomIn />
+            </button>
+            <button className='ImZoomOut' onClick={handleZoomOut}>
+              <ImZoomOut />
+            </button>
+          </div>
+        </div>
+
+        <div className='layers-container'>
+          <Popover content={content} trigger='click'>
+            <Button shape='circle' icon={<FaLayerGroup />} />
+          </Popover>
+        </div>
+
+        <div className='settings-container'>
+          <Popover content={content} trigger='click'>
+            <Button shape='circle' icon={<IoSettings />} />
+          </Popover>
+        </div>
+
+        <div className='Full-container'>
+          <FullscreenControl />
+        </div>
 
         {/* Marker for the center */}
         <Marker position={center} icon={customIcon}>
-          <Popup>
-            A pretty CSS3 popup. Easily customizable. <br />
-            Click the marker to visit the website.
-          </Popup>
+          <Popup>Hello</Popup>
         </Marker>
 
-        <FullscreenControl />
       </MapContainer>
     </div>
   );

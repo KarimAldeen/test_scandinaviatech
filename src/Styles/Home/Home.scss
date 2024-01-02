@@ -78,26 +78,7 @@ button{
   }
 }
 
-.layers-container{
-  position: absolute;
-  left: 70px;
-  margin: 10px;   
-  bottom: 0px;
-  z-index: 999;
 
- >button{
-  padding: 20px 20px !important;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  svg{
-    font-size: 20px;
-  }
- }
-
-
-
-}
 .layers-content{
   display: flex; 
   >div{
@@ -132,6 +113,181 @@ button{
   }
  
 
-  .LayersControl{
-    display: none !important;
+
+  // .leaflet-left{
+  //   display: none !important;
+  // }
+
+
+  .settings-container{
+    position: absolute;
+    left: 130px;
+    margin: 10px;   
+    bottom: 0px;
+    z-index: 999;
+  
+   >button{
+    padding: 20px 20px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg{
+      font-size: 20px;
+    }
+   }
+  
+  
+  
   }
+  .settings-content{
+    display: flex; 
+    >div{
+      flex: 1;
+      border-right: 1px solid rgba(0, 0, 0, 0.12) ;
+      display: flex;justify-content: center; align-items: center; flex-direction: column;
+      gap: 5px;
+      &:last-child{
+        border-right: 1px solid transparent !important ;
+  
+      }
+   
+      img{
+        width: 50px ;
+        border-radius: 50%;
+        border-width: 3px;
+        border: 2px rgb(238, 238, 238) solid;
+        cursor: pointer;
+        
+       
+       }
+       .ActiveImage{
+        border: 3px green solid !important ;
+      }
+       h6{
+        font-size: 11px;
+        text-align: center;
+        width: 80%;
+       }
+    }
+    
+    }
+
+
+
+    .zoom-container{
+      position: absolute;
+      left: 270px;
+      margin: 10px;   
+      bottom: 0px;
+      z-index: 999;
+    
+      >div{
+        display: flex;
+      
+        .ImZoomIn{
+  display: inline-flex;
+          -webkit-box-align: center;
+          align-items: center;
+          -webkit-box-pack: center;
+          justify-content: center;
+          position: relative;
+          box-sizing: border-box;
+          -webkit-tap-highlight-color: transparent;
+          outline: 0px;
+          margin: 0px !important;
+          cursor: pointer;
+          user-select: none;
+          vertical-align: middle;
+          appearance: none;
+          text-decoration: none;
+          font-size: 20px;
+          font-family: ManropeBold, ManropeRegular;
+          font-weight: 500;
+          line-height: 1.75;
+          text-transform: uppercase;
+          transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+          border: 1px solid rgba(66, 70, 73, 0.5);
+          color: rgb(66, 70, 73);
+          background-color: rgb(255, 255, 255);
+          border-radius: 400px 0px 0px 400px;
+          padding: 9px 16px;
+          min-width: 0px;
+          box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+       
+        }
+        .ImZoomOut{
+  display: inline-flex;
+          -webkit-box-align: center;
+          align-items: center;
+          -webkit-box-pack: center;
+          justify-content: center;
+          position: relative;
+          box-sizing: border-box;
+          -webkit-tap-highlight-color: transparent;
+          outline: 0px;
+          margin: 0px !important;
+          cursor: pointer;
+          user-select: none;
+          vertical-align: middle;
+          appearance: none;
+          text-decoration: none;
+          font-size: 20px;
+          font-family: ManropeBold, ManropeRegular;
+          font-weight: 500;
+          line-height: 1.75;
+          text-transform: uppercase;
+          transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+          border: 1px solid rgba(66, 70, 73, 0.5);
+          color: rgb(66, 70, 73);
+          background-color: rgb(255, 255, 255);
+          border-radius: 0px 400px 400px 0px;
+          padding: 9px 16px;
+          min-width: 0px;
+          box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+       
+        }
+      }
+    
+    
+     
+    }
+    
+    .Full-container{
+      position: absolute;
+      left: 330px;
+      margin: 10px;   
+      bottom: 0px;
+      z-index: 999;
+    
+     >button{
+      padding: 20px 20px !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      svg{
+        font-size: 20px;
+      }
+     }
+    
+    
+    
+    }
+    .layers-container{
+      left: 120px;
+
+
+    }
+    .settings-container{
+      left: 170px;
+    }
+    .zoom-container{
+      left: 0px;
+      z-index: 999999;
+    }
+    .Full-container{
+      left: 330px;
+    }
+    button{
+      color: rgb(66, 70, 73) !important;
+
+    }

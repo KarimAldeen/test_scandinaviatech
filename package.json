@@ -24,6 +24,7 @@
     "react-leaflet-fullscreen": "^4.1.1",
     "react-leaflet-google": "^4.0.0",
     "react-leaflet-google-v2": "^6.0.0",
+    "react-leaflet-markercluster": "3.0.0-rc1",
     "react-map-gl": "^7.1.7",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.21.1",
