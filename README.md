@@ -13,6 +13,9 @@
 
     ```bash
     git clone https://github.com/KarimAldeen/test_scandinaviatech.git
+    ```
+    
+    ```bash
     cd test_scandinaviatech
     ```
 
