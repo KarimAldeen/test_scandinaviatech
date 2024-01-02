@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, LayersControl, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, LayersControl, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { Button, Popover, Switch } from 'antd';
@@ -7,40 +7,43 @@ import { FaLayerGroup } from 'react-icons/fa';
 import { IoSettings } from 'react-icons/io5';
 import { ImZoomIn, ImZoomOut } from 'react-icons/im';
 import { MdFullscreen } from 'react-icons/md';
-import MarkerClusterGroup from 'react-leaflet-cluster'
+import MarkerClusterGroup from 'react-leaflet-cluster';
 
+interface MarkersProps {
+  position: [number, number];
+}
 
-const FullscreenControl = () => {
+const FullscreenControl: React.FC = () => {
   const map = useMap();
 
   const handleFullscreenToggle = () => {
-    const container = map.getContainer();
-    const doc = window.document;
+    const container = map.getContainer() as HTMLElement;
+    const doc = window.document as Document;
   
     if (
       !doc.fullscreenElement &&
-      !doc.mozFullScreenElement &&
-      !doc.webkitFullscreenElement &&
-      !doc.msFullscreenElement
+      !(doc as any).mozFullScreenElement &&
+      !(doc as any).webkitFullscreenElement &&
+      !(doc as any).msFullscreenElement
     ) {
       if (container.requestFullscreen) {
         container.requestFullscreen();
-      } else if (container.mozRequestFullScreen) {
-        container.mozRequestFullScreen();
-      } else if (container.webkitRequestFullscreen) {
-        container.webkitRequestFullscreen();
-      } else if (container.msRequestFullscreen) {
-        container.msRequestFullscreen();
+      } else if ((container as any).mozRequestFullScreen) {
+        (container as any).mozRequestFullScreen();
+      } else if ((container as any).webkitRequestFullscreen) {
+        (container as any).webkitRequestFullscreen();
+      } else if ((container as any).msRequestFullscreen) {
+        (container as any).msRequestFullscreen();
       }
     } else {
       if (doc.exitFullscreen) {
         doc.exitFullscreen();
-      } else if (doc.mozCancelFullScreen) {
-        doc.mozCancelFullScreen();
-      } else if (doc.webkitExitFullscreen) {
-        doc.webkitExitFullscreen();
-      } else if (doc.msExitFullscreen) {
-        doc.msExitFullscreen();
+      } else if ((doc as any).mozCancelFullScreen) {
+        (doc as any).mozCancelFullScreen();
+      } else if ((doc as any).webkitExitFullscreen) {
+        (doc as any).webkitExitFullscreen();
+      } else if ((doc as any).msExitFullscreen) {
+        (doc as any).msExitFullscreen();
       }
     }
   };
@@ -51,28 +54,37 @@ const FullscreenControl = () => {
   );
 };
 
-const App = () => {
-  const [currentMap, setCurrentMap] = useState(1);
-  const [zoom, setZoom] = useState(13);
-  const Markares = [
+const App: React.FC = () => {
+  const [currentMap, setCurrentMap] = useState<number>(1);
+  const [zoom, setZoom] = useState<number>(13);
+
+  const Markares: MarkersProps[] = [
     { position: [51.505, -0.09] },
     { position: [51.5, -0.1] },
     { position: [51.49, -0.05] },
   ];
-  const center = [51.505, -0.09];
-  const customIcon = new L.Icon({
-    iconUrl: '../Layout/marker.png',
-    iconSize: [15,30],
-    iconAnchor: [15, 30],
-    popupAnchor: [0, -30],
-  });
 
-  const currentMapHandleClick = (currentMap) => {
+  const center: [number, number] = [51.505, -0.09];
+
+  const customIcon = (index: number, isPing: boolean) => {
+    const classNames = `custom-marker marker-${index} ${isPing ? 'Ping' : ''}`;
+    //@ts-ignore
+    return new L.divIcon({
+      className: classNames,
+      html: `<div>
+              <img className="Image" style="width: 22px; height: 37px;" src="../Layout/marker.png" alt="Marker"/>
+            </div>`,
+    });
+  };
+
+  const currentMapHandleClick = (currentMap: number) => {
     setCurrentMap(currentMap);
   };
 
   const handleZoomIn = () => {
-    setZoom((prevZoom) => prevZoom + 1);
+    if (zoom < 19) {
+      setZoom((prevZoom) => prevZoom + 1);
+    }
   };
 
   const handleZoomOut = () => {
@@ -95,43 +107,39 @@ const App = () => {
       </div>
     </div>
   );
-  const [Group, setGroup] = useState(false)
-  const [Ping, setPing] = useState(false)
 
+  const [Group, setGroup] = useState<boolean>(false);
+  const [Ping, setPing] = useState<boolean>(false);
 
-  const onChangeGrouping = (checked) => {
+  const onChangeGrouping = (checked: boolean) => {
     console.log(`switch to ${checked}`);
-    setGroup(!Group)
+    setGroup(!Group);
+  };
 
-  }
-  const onChangePing = (checked) => {
+  const onChangePing = (checked: boolean) => {
     console.log(`switch to ${checked}`);
-    setPing(!Ping)
+    setPing(!Ping);
+  };
 
-  }
   const Settingcontent = (
     <div className='setting-content'>
-
       <div>
         <Switch onChange={onChangeGrouping} />
-        <h6>
-          Markers Grouping</h6>
+        <h6>Markers Grouping</h6>
       </div>
       <div>
         <Switch onChange={onChangePing} />
-        <h6>
-          Markers Ping Angle</h6>
+        <h6>Markers Ping Angle</h6>
       </div>
-
     </div>
   );
 
   return (
     <div className='NewMap'>
       <MapContainer center={center} key={zoom} zoom={zoom} style={{ height: '500px', width: '100%' }}>
-        <LayersControl position='bottomleft' className='LayersControl'>
+        <LayersControl position='bottomleft' >
           {/* OpenStreetMap */}
-          <LayersControl.BaseLayer name='OpenStreetMap' checked={currentMap === 1} onChange={() => currentMapHandleClick(1)}>
+          <LayersControl.BaseLayer name='OpenStreetMap' checked={currentMap === 1} >
             <TileLayer
               url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -139,7 +147,7 @@ const App = () => {
           </LayersControl.BaseLayer>
 
           {/* Google Maps */}
-          <LayersControl.BaseLayer name='Google Maps' checked={currentMap === 2} onChange={() => currentMapHandleClick(2)}>
+          <LayersControl.BaseLayer name='Google Maps' checked={currentMap === 2} >
             <TileLayer
               url='https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}'
               attribution='&copy; <a href="https://www.google.com/maps">Google Maps</a> contributors'
@@ -147,7 +155,7 @@ const App = () => {
           </LayersControl.BaseLayer>
 
           {/* Google Maps Satellite */}
-          <LayersControl.BaseLayer name='Google Maps Satellite' checked={currentMap === 3} onChange={() => currentMapHandleClick(3)}>
+          <LayersControl.BaseLayer name='Google Maps Satellite' checked={currentMap === 3} >
             <TileLayer
               url='https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
               attribution='&copy; <a href="https://www.google.com/maps">Google Maps</a> contributors'
@@ -181,33 +189,26 @@ const App = () => {
         <div className='Full-container'>
           <FullscreenControl />
         </div>
-        {
-          !Group  ? (
-            Markares?.map((item, index) => {
-              return(
-                <Marker position={item?.position} icon={customIcon}>
-                  <Popup>Hello</Popup>
+        <div className='Markers'>
+          {!Group ? (
+            Markares?.map((item, index) => (
+              <div key={index}>
+                <Marker  position={item?.position} icon={customIcon(index, Ping)}>
+                  {/* Marker content */}
                 </Marker>
-              )
-            })
-          ) :(
-            <MarkerClusterGroup
-            chunkedLoading
-          >
-            {(Markares).map((address, index) => (
-              <Marker
-                key={index}
-                position={address?.position}
-                title={index}
-                icon={customIcon}
-              ></Marker>
-            ))}
-          </MarkerClusterGroup>
-          )
-        }
-      
-
-
+              </div>
+            ))
+          ) : (
+            <MarkerClusterGroup chunkedLoading>
+              {Markares.map((address, index) => (
+                <div key={index}>
+                  <Marker key={index} position={address?.position} icon={customIcon(index,Ping)}>
+                  </Marker>
+                </div>
+              ))}
+            </MarkerClusterGroup>
+          )}
+        </div>
       </MapContainer>
     </div>
   );
