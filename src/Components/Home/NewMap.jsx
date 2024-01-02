@@ -8,6 +8,7 @@ import { IoSettings } from 'react-icons/io5';
 import { ImZoomIn, ImZoomOut } from 'react-icons/im';
 import { MdFullscreen, MdFullscreenExit } from 'react-icons/md';
 
+
 const FullscreenControl = () => {
   const map = useMap();
 
