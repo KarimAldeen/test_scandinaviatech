@@ -43,7 +43,7 @@ const App = () => {
   const center = [51.505, -0.09];
   const customIcon = new L.Icon({
     iconUrl: '../Layout/marker.png',
-    iconSize: [20,40],
+    iconSize: [15,30],
     iconAnchor: [15, 30],
     popupAnchor: [0, -30],
   });
@@ -161,7 +161,7 @@ const App = () => {
           <FullscreenControl />
         </div>
         {
-          Group  ? (
+          !Group  ? (
             Markares?.map((item, index) => {
               return(
                 <Marker position={item?.position} icon={customIcon}>
