@@ -6,7 +6,6 @@
 ### Prerequisites
 
 - Node.js and npm installed
-- Google Maps API Key (instructions on obtaining one [here](https://developers.google.com/maps/gmp-get-started))
 
 ### Installation
 
@@ -31,4 +30,11 @@ Start the development server:
 ```bash
 
 pnpm start
+
+3. Live :
+
+```bash
+https://test-scandinaviatech.vercel.app/
+```
+
 
