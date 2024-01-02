@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, LayersControl, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { Button, Popover } from 'antd';
+import { Button, Popover, Switch } from 'antd';
 import { FaLayerGroup } from 'react-icons/fa';
 import { IoSettings } from 'react-icons/io5';
 import { ImZoomIn, ImZoomOut } from 'react-icons/im';
 import { MdFullscreen, MdFullscreenExit } from 'react-icons/md';
+import MarkerClusterGroup from 'react-leaflet-cluster'
 
 
 const FullscreenControl = () => {
@@ -34,17 +35,15 @@ const FullscreenControl = () => {
 const App = () => {
   const [currentMap, setCurrentMap] = useState(1);
   const [zoom, setZoom] = useState(13);
-
-  const markers = [
+  const Markares = [
     { position: [51.505, -0.09] },
     { position: [51.5, -0.1] },
     { position: [51.49, -0.05] },
   ];
-
   const center = [51.505, -0.09];
   const customIcon = new L.Icon({
     iconUrl: '../Layout/marker.png',
-    iconSize: [30, 30],
+    iconSize: [20,40],
     iconAnchor: [15, 30],
     popupAnchor: [0, -30],
   });
@@ -77,11 +76,39 @@ const App = () => {
       </div>
     </div>
   );
+  const [Group, setGroup] = useState(false)
+
+  const onChangeGrouping = (checked) => {
+    console.log(`switch to ${checked}`);
+    setGroup(!Group)
+
+  }
+  const onChangePing = (checked) => {
+    console.log(`switch to ${checked}`);
+    setGroup(!Group)
+
+  }
+  const Settingcontent = (
+    <div className='setting-content'>
+
+      <div>
+        <Switch onChange={onChangeGrouping} />
+        <h6>
+          Markers Grouping</h6>
+      </div>
+      <div>
+        <Switch onChange={onChangePing} />
+        <h6>
+          Markers Ping Angle</h6>
+      </div>
+
+    </div>
+  );
 
   return (
     <div className='NewMap'>
-      <MapContainer center={center} zoom={zoom} style={{ height: '500px', width: '100%' }}>
-        <LayersControl position='bottomright' className='LayersControl'>
+      <MapContainer center={center} key={zoom} zoom={zoom} style={{ height: '500px', width: '100%' }}>
+        <LayersControl position='bottomleft' className='LayersControl'>
           {/* OpenStreetMap */}
           <LayersControl.BaseLayer name='OpenStreetMap' checked={currentMap === 1} onChange={() => currentMapHandleClick(1)}>
             <TileLayer
@@ -125,7 +152,7 @@ const App = () => {
         </div>
 
         <div className='settings-container'>
-          <Popover content={content} trigger='click'>
+          <Popover content={Settingcontent} trigger='click'>
             <Button shape='circle' icon={<IoSettings />} />
           </Popover>
         </div>
@@ -133,11 +160,32 @@ const App = () => {
         <div className='Full-container'>
           <FullscreenControl />
         </div>
+        {
+          Group  ? (
+            Markares?.map((item, index) => {
+              return(
+                <Marker position={item?.position} icon={customIcon}>
+                  <Popup>Hello</Popup>
+                </Marker>
+              )
+            })
+          ) :(
+            <MarkerClusterGroup
+            chunkedLoading
+          >
+            {(Markares).map((address, index) => (
+              <Marker
+                key={index}
+                position={address?.position}
+                title={index}
+                icon={customIcon}
+              ></Marker>
+            ))}
+          </MarkerClusterGroup>
+          )
+        }
+      
 
-        {/* Marker for the center */}
-        <Marker position={center} icon={customIcon}>
-          <Popup>Hello</Popup>
-        </Marker>
 
       </MapContainer>
     </div>

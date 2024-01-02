@@ -18,10 +18,14 @@ button{
 
 .NewMap{
   margin: auto;
-  width: 90vw;
+  width: 96vw;
   height: 100vh;
   display: flex;justify-content: center; align-items: center;
   position: relative;
+  >*{
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,.1),0 8px 10px -6px rgba(0,0,0,.1);
+
+  }
 }
 .leaflet-container.leaflet-touch-drag.leaflet-touch-zoom{
   border-radius: 20px;
@@ -114,9 +118,9 @@ button{
  
 
 
-  // .leaflet-left{
-  //   display: none !important;
-  // }
+  .leaflet-left{
+    display: none !important;
+  }
 
 
   .settings-container{
@@ -139,35 +143,16 @@ button{
   
   
   }
-  .settings-content{
+  .setting-content{
     display: flex; 
+    flex-direction: column;
+    gap: 10px;
+    font-weight: bold;
     >div{
       flex: 1;
-      border-right: 1px solid rgba(0, 0, 0, 0.12) ;
-      display: flex;justify-content: center; align-items: center; flex-direction: column;
+      display: flex; gap: 20px;
       gap: 5px;
-      &:last-child{
-        border-right: 1px solid transparent !important ;
-  
-      }
-   
-      img{
-        width: 50px ;
-        border-radius: 50%;
-        border-width: 3px;
-        border: 2px rgb(238, 238, 238) solid;
-        cursor: pointer;
-        
-       
-       }
-       .ActiveImage{
-        border: 3px green solid !important ;
-      }
-       h6{
-        font-size: 11px;
-        text-align: center;
-        width: 80%;
-       }
+
     }
     
     }
@@ -285,7 +270,7 @@ button{
       z-index: 999999;
     }
     .Full-container{
-      left: 330px;
+      left: 220px;
     }
     button{
       color: rgb(66, 70, 73) !important;
