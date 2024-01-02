@@ -31,10 +31,13 @@ Start the development server:
 
 pnpm start
 
-3. Live :
+```
 
-```bash
+3. Live 
+
+```
 https://test-scandinaviatech.vercel.app/
+
 ```
 
 
