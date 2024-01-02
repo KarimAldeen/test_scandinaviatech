@@ -6,7 +6,7 @@ import { Button, Popover, Switch } from 'antd';
 import { FaLayerGroup } from 'react-icons/fa';
 import { IoSettings } from 'react-icons/io5';
 import { ImZoomIn, ImZoomOut } from 'react-icons/im';
-import { MdFullscreen, MdFullscreenExit } from 'react-icons/md';
+import { MdFullscreen } from 'react-icons/md';
 import MarkerClusterGroup from 'react-leaflet-cluster'
 
 
@@ -96,6 +96,8 @@ const App = () => {
     </div>
   );
   const [Group, setGroup] = useState(false)
+  const [Ping, setPing] = useState(false)
+
 
   const onChangeGrouping = (checked) => {
     console.log(`switch to ${checked}`);
@@ -104,7 +106,7 @@ const App = () => {
   }
   const onChangePing = (checked) => {
     console.log(`switch to ${checked}`);
-    setGroup(!Group)
+    setPing(!Ping)
 
   }
   const Settingcontent = (
