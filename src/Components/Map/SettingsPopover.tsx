@@ -19,11 +19,11 @@ const SettingsPopover: React.FC<SettingsPopoverProps> = ({ group, setGroup, ping
   const Settingcontent = (
     <div className='setting-content'>
       <div>
-        <Switch onChange={onChangeGrouping} />
+        <Switch defaultChecked onChange={onChangeGrouping} />
         <h6>Markers Grouping</h6>
       </div>
       <div>
-        <Switch onChange={onChangePing} />
+        <Switch defaultChecked onChange={onChangePing} />
         <h6>Markers Ping Angle</h6>
       </div>
     </div>

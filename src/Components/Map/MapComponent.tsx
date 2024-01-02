@@ -10,8 +10,8 @@ import MarkersComponent from './MarkersComponent';
 const MapComponent: React.FC = () => {
   const [currentMap, setCurrentMap] = useState<number>(1);
   const [zoom, setZoom] = useState<number>(13);
-  const [Group, setGroup] = useState<boolean>(false);
-  const [Ping, setPing] = useState<boolean>(false);
+  const [Group, setGroup] = useState<boolean>(true);
+  const [Ping, setPing] = useState<boolean>(true);
 
   //data from api 
   const Markers: any[] = [
